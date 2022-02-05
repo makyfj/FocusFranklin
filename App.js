@@ -7,7 +7,8 @@ export default function App() {
   const [focusSubject, setFocusSubject] = useState(null)
   return (
     <View style={styles.container}>
-      <Text>{focusSubject ? "Here I want to build a timer" : <Focus />}</Text>
+      <Text>{focusSubject ? "Here I want to build a timer" : <Focus addSubject={setFocusSubject} />}</Text>
+      <Text>{focusSubject}</Text>
     </View>
   );
 }
