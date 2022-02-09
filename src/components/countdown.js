@@ -6,7 +6,7 @@ import { colors } from "../utils/colors"
 
 const MINUTES_TO_MILLIS = (min) => min * 1000 * 60
 
-export const Countdown = ({ minutes = 20, isPaused }) => {
+export const Countdown = ({ minutes = 20, isPaused, onProgress }) => {
   const interval = useRef(null)
 
   const countdown = () => {
@@ -15,6 +15,7 @@ export const Countdown = ({ minutes = 20, isPaused }) => {
         return time
       }
       const timeLeft = time - 1000
+      onProgress(timeLeft / MINUTES_TO_MILLIS(minutes))
       return timeLeft
     })
   }
