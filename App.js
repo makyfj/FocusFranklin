@@ -1,9 +1,10 @@
 import { useState } from "react"
-import { StyleSheet, Text, View } from "react-native"
+import { Platform, StyleSheet, Text, View } from "react-native"
 
 import { Focus } from "./src/features/focus"
 import { spacing } from "./src/utils/sizes"
 import { colors } from "./src/utils/colors"
+import { Timer } from "./src/features/timer"
 
 export default function App() {
   const [focusSubject, setFocusSubject] = useState(null)
@@ -11,12 +12,11 @@ export default function App() {
     <View style={styles.container}>
       <Text>
         {focusSubject ? (
-          "I want to build a timer"
+          <Timer focusSubject={focusSubject} />
         ) : (
           <Focus addSubject={setFocusSubject} />
         )}
       </Text>
-      <Text>{focusSubject}</Text>
     </View>
   )
 }
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.darkBlue,
-    padding: spacing.xl,
+    paddingTop: Platform.OS === "ios" ? spacing.lg : spacing.xl,
+    alignItems: "center",
   },
 })

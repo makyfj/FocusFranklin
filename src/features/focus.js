@@ -7,7 +7,7 @@ import { fontSizes, paddingSizes, spacing } from "../utils/sizes"
 import { colors } from "../utils/colors"
 
 export const Focus = ({ addSubject }) => {
-  const [tempItem, setTempItem] = useState(null)
+  const [tempItem, setTempItem] = useState("house cleaning")
 
   return (
     <View style={styles.container}>
