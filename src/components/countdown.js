@@ -20,10 +20,12 @@ export const Countdown = ({ minutes = 20, isPaused }) => {
   }
 
   useEffect(() => {
-    interval.current = setInterval(countdown, 10000)
-
+    if (isPaused) {
+      return
+    }
+    interval.current = setInterval(countdown, 1000)
     return () => clearInterval(interval.current)
-  }, [])
+  }, [isPaused])
 
   const [millis, setMillis] = useState(MINUTES_TO_MILLIS(minutes))
 
