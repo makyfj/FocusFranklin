@@ -6,8 +6,10 @@ import { Countdown } from "../components/countdown"
 import { colors } from "../utils/colors"
 import { fontSizes, spacing } from "../utils/sizes"
 import { RoundedButton } from "../components/roundedButton"
+import { Timing } from "../features/timing"
 
 export const Timer = ({ focusSubject }) => {
+  const [minutes, setMinutes] = useState(0.1)
   const [isStarted, setIsStarted] = useState(false)
   const [progress, setProgress] = useState(0)
 
@@ -15,10 +17,20 @@ export const Timer = ({ focusSubject }) => {
     setProgress(newProgress)
   }
 
+  const changeTime = (min) => {
+    setMinutes(min)
+    setProgress(1)
+    setIsStarted(false)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.countdown}>
-        <Countdown isPaused={!isStarted} onProgress={onProgress} />
+        <Countdown
+          minutes={minutes}
+          isPaused={!isStarted}
+          onProgress={onProgress}
+        />
       </View>
       <View>
         <Text style={styles.title}>Franklin is focusing on:</Text>
@@ -30,6 +42,9 @@ export const Timer = ({ focusSubject }) => {
           style={styles.progressBar}
           color={colors.lightBlue}
         />
+      </View>
+      <View style={styles.buttonWrapper}>
+        <Timing onChangeTime={changeTime} />
       </View>
       <View style={styles.buttonsContainer}>
         {isStarted ? (
@@ -83,5 +98,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignContent: "center",
     justifyContent: "space-around",
+  },
+  buttonWrapper: {
+    flex: 0.2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 })
