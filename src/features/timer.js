@@ -11,7 +11,7 @@ import { Timing } from "../features/timing"
 
 const DEFAULT_TIME = 0.1
 
-export const Timer = ({ focusSubject }) => {
+export const Timer = ({ focusSubject, onTimerEnd, clearSubject }) => {
   useKeepAwake()
   const [minutes, setMinutes] = useState(DEFAULT_TIME)
   const [isStarted, setIsStarted] = useState(false)
@@ -31,10 +31,11 @@ export const Timer = ({ focusSubject }) => {
   }
 
   const onEnd = () => {
-    vibrate();
+    vibrate()
     setMinutes(DEFAULT_TIME)
     setProgress(1)
     setIsStarted(false)
+    onTimerEnd()
   }
 
   const changeTime = (min) => {
@@ -82,6 +83,9 @@ export const Timer = ({ focusSubject }) => {
           />
         )}
       </View>
+      <View style={styles.clearSubject}>
+        <RoundedButton title="X" size={65} onPress={() => clearSubject(true)} />
+      </View>
     </View>
   )
 }
@@ -122,6 +126,11 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flex: 0.2,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  clearSubject: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
